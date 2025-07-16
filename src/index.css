@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+.font-retro {
+  font-family: 'Press Start 2P', monospace;
+}
+
+@keyframes diagonalGlow {
+  0% {
+    background-position: 0% 100%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+.glow-diagonal {
+  background: linear-gradient(135deg, #facc15, #f43f5e, #3b82f6);
+  background-size: 300% 300%;
+  animation: diagonalGlow 4s linear infinite;
+  color: white;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  transition: transform 0.3s ease;
+}
+
+.glow-diagonal:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+}
+
+.main {
+  position: relative;
+  z-index: 1;
+}
+.main::before,
+.main::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+.left-active::before {
+  left: 0;
+  background: linear-gradient(135deg, #3a0ca3, #7209b7, #4361ee);
+  opacity: 1;
+}
+
+.left-active::after {
+  right: 0;
+  background: linear-gradient(135deg, #ff6a00, #ff3c3c, #b30000);
+  opacity: 0.2; /* dull/inactive side */
+}
+
+/* RIGHT SIDE: active */
+.right-active::before {
+  left: 0;
+  background: linear-gradient(135deg, #3a0ca3, #7209b7, #4361ee);
+  opacity: 0.2; /* dull/inactive side */
+}
+
+.right-active::after {
+  right: 0;
+  background: linear-gradient(135deg, #ff6a00, #ff3c3c, #b30000);
+  opacity: 1;
+  
+}
+.opacity{
+  opacity: 0.2;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+}
