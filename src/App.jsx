@@ -71,7 +71,7 @@ function App() {
 
   currentPlayer.clickIndex.push(index);
 
-  if (checkWin(activePlayer.clickIndex)) {
+  if (checkWin(activePlayer.clickIndex.sort((a, b) => a - b))) {
     if (currentPlayer.name === players.player1.name) {
       updateScore("player1", "win");
       updateScore("player2", "loose");
