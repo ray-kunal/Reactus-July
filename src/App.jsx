@@ -49,44 +49,43 @@ function App() {
   };
 
   const handleGridClick = (gridId, index) => {
-  if (gridData[index] !== null) return;
-  
-  const currentPlayer = activePlayer;
+    if (gridData[index] !== null) return;
 
-  const newGridData = [...gridData];
-  newGridData[index] = currentPlayer.Symbol;
-  setGridData(newGridData);
-  
-  if (currentPlayer.name === players.player1.name) {
-    players.player1.currentPlayer = 0;
-    players.player2.currentPlayer = 1;
-    handleMoves(players.player1.moves, gridId);
-    setActivePlayer(players.player2);
-  } else {
-    players.player1.currentPlayer = 1;
-    players.player2.currentPlayer = 0;
-    handleMoves(players.player2.moves, gridId);
-    setActivePlayer(players.player1);
-  }
+    const currentPlayer = activePlayer;
 
-  currentPlayer.clickIndex.push(index);
+    const newGridData = [...gridData];
+    newGridData[index] = currentPlayer.Symbol;
+    setGridData(newGridData);
 
-  if (checkWin(currentPlayer.clickIndex.sort((a, b) => a - b))) {
     if (currentPlayer.name === players.player1.name) {
-      updateScore("player1", "win");
-      updateScore("player2", "loose");
+      players.player1.currentPlayer = 0;
+      players.player2.currentPlayer = 1;
+      handleMoves(players.player1.moves, gridId);
+      setActivePlayer(players.player2);
     } else {
-      updateScore("player2", "win");
-      updateScore("player1", "loose");
+      players.player1.currentPlayer = 1;
+      players.player2.currentPlayer = 0;
+      handleMoves(players.player2.moves, gridId);
+      setActivePlayer(players.player1);
     }
-    setStatus("win");
-  } else if (count === 8) { 
-    updateScore("player1", "tie");
-    updateScore("player2", "tie");
-    setStatus("draw");
-  }
 
-};
+    currentPlayer.clickIndex.push(index);
+
+    if (checkWin(currentPlayer.clickIndex.sort((a, b) => a - b))) {
+      if (currentPlayer.name === players.player1.name) {
+        updateScore("player1", "win");
+        updateScore("player2", "loose");
+      } else {
+        updateScore("player2", "win");
+        updateScore("player1", "loose");
+      }
+      setStatus("win");
+    } else if (count === 8) {
+      updateScore("player1", "tie");
+      updateScore("player2", "tie");
+      setStatus("draw");
+    }
+  };
 
   const resetGame = () => {
     setGridData(Array(gridSize * gridSize).fill(null));
@@ -141,15 +140,15 @@ function App() {
 
   return (
     <div
-      className="bg-gradient-to-br from-[#1a231f] via-[#223127] to-[#2c3b30] w-screen h-screen flex flex-col gap-[4rem] items-center main relative"
+      className="bg-gradient-to-br from-[#1a231f] via-[#223127] to-[#2c3b30] w-full h-screen flex flex-col gap-20 sm:gap-24 items-center main relative"
       ref={main}
     >
-      <Navbar className="absolute top-0 left-0 w-[100%] border-2 border-white"/>
+      <Navbar className="absolute top-0 left-0 w-full border-2 border-white" />
       <div
-        className="w-[60%] h-[70%] bg-[#1C1F2A] p-4 flex flex-col items-center justify-start gap-8 shadow-lg rounded-xl"
+        className=" w-[70%] h-auto bg-[#1C1F2A] p-4 flex flex-col items-center justify-start gap-5 shadow-lg rounded-2xl"
         ref={boardRef}
       >
-        <div className="grid grid-cols-3 grid-rows-3 w-[50%] h-[50%] border-2 bg-[#0e0d0d]">
+        <div className="grid grid-cols-3 grid-rows-3 w-full aspect-square max-w-[400px] sm:max-w-[300px]">
           {[...Array(gridSize)].map((_, row) =>
             [...Array(gridSize)].map((_, col) => {
               const index = row * gridSize + col;
@@ -170,11 +169,11 @@ function App() {
           )}
         </div>
 
-        <div className="w-full flex-1 flex flex-col items-center justify-center gap-6 bg-[#0f172a]">
+        <div className="w-full flex flex-col items-center justify-center sm:gap-10 lg:gap-8 bg-[#0f172a]">
           {start ? (
-            <div className="flex gap-4 w-full h-full">
+            <div className="flex gap-4 w-full h-full rounded-2xl">
               {(status === "win" || status === "draw") && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-6 justify-center items-center font-retro bg-[#000]  text-white w-[100%] h-[40%] text-center p-6">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col gap-6 justify-center items-center font-retro bg-[#000]  text-white w-[100%] lg:h-[40%] sm:h-[20%] text-center p-6">
                   {status === "win" ? (
                     <h2>
                       {activePlayer.name === players.player1.name
@@ -194,17 +193,20 @@ function App() {
                 </div>
               )}
 
-              <div
-                className="flex flex-col gap-4 text-white text-center font-retro flex-1 rounded-2xl"
-                ref={(el) => (activePlayerElement.current[0] = el)}
-              >
-                <PlayerDetails player={players.player1} />
-              </div>
-              <div
-                className="flex flex-col gap-4 text-white text-center font-retro flex-1 p-4 rounded-2xl"
-                ref={(el) => (activePlayerElement.current[1] = el)}
-              >
-                <PlayerDetails player={players.player2} />
+              <div className="w-full flex justify-between items-start p-4 rounded-2xl text-white font-retro">
+                <div
+                  className="flex flex-col text-center sm:gap-6 lg:gap-4 w-[50%] rounded-2xl"
+                  ref={(el) => (activePlayerElement.current[0] = el)}
+                >
+                  <PlayerDetails player={players.player1} />
+                </div>
+
+                <div
+                  className="flex flex-col text-center sm:gap-6 lg:gap-4 w-[50%] rounded-2xl"
+                  ref={(el) => (activePlayerElement.current[1] = el)}
+                >
+                  <PlayerDetails player={players.player2} />
+                </div>
               </div>
             </div>
           ) : (
@@ -213,7 +215,7 @@ function App() {
                 Wanna play the cool game of TIC-TAC-TOE? Click below to start!
               </h1>
               <button
-                className="font-retro glow-diagonal rounded-xl px-6 py-2 bg-green-500"
+                className="font-retro glow-diagonal rounded-xl p-4 bg-green-500"
                 onClick={() => setStart(true)}
               >
                 Start Game

@@ -3,7 +3,16 @@
 .font-retro {
   font-family: 'Press Start 2P', monospace;
 }
-
+body{
+  box-sizing: border-box;
+  margin:0;
+  padding: 0;
+}
+.main{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 @keyframes diagonalGlow {
   0% {
     background-position: 0% 100%;
