@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import GridBox from "./components/gridBox";
+import GridBox from "./components/GridBox";
 import PlayerDetails from "./components/PlayerDetails";
 import Navbar from "./components/Navbar";
 import { players } from "./data/playerdata";
@@ -42,6 +42,7 @@ function App() {
   };
 
   const checkWin = (arr) => {
+    console.log("Checking win for:", arr);
     return winningCombos.some((combo) =>
       combo.every((cell) => arr.includes(cell))
     );
@@ -70,7 +71,7 @@ function App() {
 
   currentPlayer.clickIndex.push(index);
 
-  if (checkWin(currentPlayer.clickIndex)) {
+  if (checkWin(activePlayer.moves.rows) || checkWin(activePlayer.moves.cols)) {
     if (currentPlayer.name === players.player1.name) {
       updateScore("player1", "win");
       updateScore("player2", "loose");
