@@ -71,7 +71,7 @@ function App() {
 
   currentPlayer.clickIndex.push(index);
 
-  if (checkWin(activePlayer.moves.rows) || checkWin(activePlayer.moves.cols)) {
+  if (checkWin(activePlayer.clickIndex)) {
     if (currentPlayer.name === players.player1.name) {
       updateScore("player1", "win");
       updateScore("player2", "loose");
@@ -85,6 +85,7 @@ function App() {
     updateScore("player2", "tie");
     setStatus("draw");
   }
+
 };
 
   const resetGame = () => {
