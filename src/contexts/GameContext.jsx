@@ -4,7 +4,7 @@ import { players } from "../data/playerdata";
 
 const CounterContext = createContext();
 export const CounterProvider = ({ children }) => {
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
   return (
     <CounterContext.Provider value={{ count, setCount }}>
       {children}
@@ -15,7 +15,7 @@ export const useCounter = () => useContext(CounterContext);
 
 const ActivePlayer = createContext();
 export const PlayerProvider = ({ children }) => {
-  const [activePlayer, setActivePlayer] = useState(players.player1);
+  const [activePlayer, setActivePlayer] = useState({...players.player1});
 
   return (
     <ActivePlayer.Provider value={{ activePlayer, setActivePlayer }}>

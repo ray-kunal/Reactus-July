@@ -48,29 +48,30 @@
 }
 .left-active::before {
   left: 0;
-  background: linear-gradient(135deg, #3a0ca3, #7209b7, #4361ee);
+  background: linear-gradient(135deg, #9C0D38, #B2184A, #C51E56);
   opacity: 1;
 }
 
 .left-active::after {
   right: 0;
-  background: linear-gradient(135deg, #ff6a00, #ff3c3c, #b30000);
-  opacity: 0.2; /* dull/inactive side */
+  background: linear-gradient(135deg, #4a4a4a, #2e2e2e, #1a1a1a); /* darker dull side */
+  opacity: 0.6;
 }
+
 
 /* RIGHT SIDE: active */
 .right-active::before {
-  left: 0;
-  background: linear-gradient(135deg, #3a0ca3, #7209b7, #4361ee);
-  opacity: 0.2; /* dull/inactive side */
+  right: 0;
+  background: linear-gradient(135deg, #55A1DC, #84C5F4, #A1D8FF);
+  opacity: 1;
 }
 
 .right-active::after {
-  right: 0;
-  background: linear-gradient(135deg, #ff6a00, #ff3c3c, #b30000);
-  opacity: 1;
-  
+  left: 0;
+  background: linear-gradient(135deg, #4a4a4a, #2e2e2e, #1a1a1a); /* dull/inactive */
+  opacity: 0.2;
 }
+
 .opacity{
   opacity: 0.2;
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
