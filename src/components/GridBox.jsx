@@ -28,13 +28,11 @@ function GridBox({ gridId, onGridClick, start, row, col, value }) {
   };
 
   const checkStart = () => {
+    if(status !== "playing") return;
     if (start && !value) {
-      // Only allow click if started and cell is empty
       updateAndCheck();
     }
   };
-
-  // Determine styling based on the value
   const getButtonStyles = () => {
     if (displayValue === null || displayValue === " ") {
       return "border border-[#ffffff] flex items-center justify-center text-[clamp(1.5rem,6vw,4rem)] font-retro font-bold";
@@ -50,7 +48,7 @@ function GridBox({ gridId, onGridClick, start, row, col, value }) {
   return (
     <button
       onClick={checkStart}
-      disabled={!!value} // Disable if there's already a value
+      disabled={!!value || status !== "playing"} 
       className={getButtonStyles()}
     >
       {displayValue}

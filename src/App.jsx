@@ -51,7 +51,7 @@ function App() {
   };
 
   const handleGridClick = (gridId, index) => {
-    if (gridData[index] !== null) return;
+    if (gridData[index] !== null || status !== "playing") return;
 
     const currentPlayer = activePlayer;
 
@@ -82,7 +82,7 @@ function App() {
         updateScore("player1", "loose");
       }
       setStatus("win");
-    } else if (count === 8) {
+    } else if (count + 1 === 9) {
       updateScore("player1", "tie");
       updateScore("player2", "tie");
       setStatus("draw");
@@ -91,7 +91,7 @@ function App() {
 
   const resetGame = () => {
     setGridData(Array(gridSize * gridSize).fill(null));
-    setStatus(null);
+    setStatus("playing");
     setCount(0);
     const freshPlayer1 = {
       ...players.player1,

@@ -27,7 +27,7 @@ export const useActivePlayer = () => useContext(ActivePlayer);
 
 const GameStatus = createContext();
 export const GameStatusProvider = ({ children }) => {
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState("playing");
 
   return (
     <GameStatus.Provider value={{ status, setStatus }}>
