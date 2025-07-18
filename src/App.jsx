@@ -7,6 +7,7 @@ import {
   useCounter,
   useActivePlayer,
   useScoreDetails,
+  useGameStatus
 } from "./contexts/GameContext";
 
 function App() {
@@ -16,7 +17,6 @@ function App() {
   const [gridData, setGridData] = useState(
     Array(gridSize * gridSize).fill(null)
   );
-  const [status, setStatus] = useState(null);
 
   const activePlayerElement = useRef([]);
   const boardRef = useRef();
@@ -24,6 +24,8 @@ function App() {
   const { count, setCount } = useCounter();
   const { activePlayer, setActivePlayer } = useActivePlayer();
   const { updateScore } = useScoreDetails();
+  const {status, setStatus} = useGameStatus();
+  // console.log(status)
 
   const winningCombos = [
     [0, 1, 2],

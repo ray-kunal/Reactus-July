@@ -25,6 +25,18 @@ export const PlayerProvider = ({ children }) => {
 };
 export const useActivePlayer = () => useContext(ActivePlayer);
 
+const GameStatus = createContext();
+export const GameStatusProvider = ({ children }) => {
+  const [status, setStatus] = useState(null);
+
+  return (
+    <GameStatus.Provider value={{ status, setStatus }}>
+      {children}
+    </GameStatus.Provider>
+  );
+};
+export const useGameStatus = () => useContext(GameStatus);
+
 const ScoreDetails = createContext();
 export const ScoreProvider = ({ children }) => {
   const [scores, setScores] = useState({
@@ -54,7 +66,9 @@ export const GameContext = ({ children }) => (
   <PlayerProvider>
     <CounterProvider>
       <ScoreProvider>
-        {children}
+        <GameStatusProvider>
+          {children}
+        </GameStatusProvider>
       </ScoreProvider>
     </CounterProvider>
   </PlayerProvider>
